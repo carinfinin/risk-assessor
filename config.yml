@@ -1,0 +1,6 @@
+addr: "localhost:8080"
+timeout_read: "15s"
+timeout_write: "15s"
+db_path: "postgres://user:password@localhost:5432/loyalty?sslmode=disable"
+logger_level: "info"
+logger_format: "json"

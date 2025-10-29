@@ -36,11 +36,11 @@ type User struct {
 }
 
 type ClientData struct {
-	FullName       string `json:"full_name"`
-	Phone          string `json:"phone"`
-	Email          string `json:"email"`
-	Income         int    `json:"income"`
-	NumberPassport int    `json:"number_passport"`
-	LoanAmount     int    `json:"loan_amount"`
-	LoanTerm       int    `json:"loan_term"`
+	FullName       string  `json:"full_name"`
+	Phone          string  `json:"phone"`
+	Email          string  `json:"email"`
+	Income         int     `json:"income"`
+	NumberPassport string  `json:"number_passport"`
+	LoanAmount     float64 `json:"loan_amount"`
+	LoanTerm       int     `json:"loan_term"`
 }

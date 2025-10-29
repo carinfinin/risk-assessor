@@ -10,7 +10,7 @@ import (
 
 //go:generate
 type Service interface {
-	CreateUser(clientData model.ClientData) (model.User, error)
+	CreateUser(clientData *model.ClientData) (*model.User, error)
 }
 
 type Router struct {
@@ -42,17 +42,27 @@ func (r *Router) configure() {
 func (r *Router) RouteUser(writer http.ResponseWriter, request *http.Request) {
 
 	var clientData model.ClientData
+
 	if err := json.NewDecoder(request.Body).Decode(&clientData); err != nil {
 		http.Error(writer, "json invalid", http.StatusBadRequest)
+		return
 	}
-
 	defer request.Body.Close()
+
+	// validate
 
 	writer.Header().Set("Content-Type", "application/json")
 
-	if err := json.NewEncoder(writer).Encode(clientData); err != nil {
+	user, err := r.Service.CreateUser(&clientData)
+	if err != nil {
+		http.Error(writer, "json error write", http.StatusInternalServerError)
+		return
+	}
+	writer.WriteHeader(http.StatusCreated)
+	if err = json.NewEncoder(writer).Encode(user); err != nil {
 		http.Error(writer, "json error write", http.StatusInternalServerError)
 	}
+
 	/*
 		{
 		  "full_name": "Иванов Иван Иванович",

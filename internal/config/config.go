@@ -7,6 +7,7 @@ type Config struct {
 	DBPath      string `yaml:"db_path"`
 	LoggerLevel string `yaml:"logger_level"`
 	Format      string `yaml:"logger_format"`
+	MQPath      string `yaml:"mq_path"`
 }
 
 func New(path string) *Config {

@@ -7,9 +7,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: user           # ⬅️ именно так!
-      POSTGRES_PASSWORD: secret     # ⬅️ именно так!
-      POSTGRES_DB: risk-assessor    # ⬅️ именно так!
+      POSTGRES_USER: user           
+      POSTGRES_PASSWORD: secret     
+      POSTGRES_DB: risk-assessor    
     ports:
       - "5432:5432"
     networks:

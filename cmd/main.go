@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/carinfinin/risk-assessor/internal/config"
 	"github.com/carinfinin/risk-assessor/internal/encryption"
 	"github.com/carinfinin/risk-assessor/internal/logger"
+	"github.com/carinfinin/risk-assessor/internal/mq"
 	"github.com/carinfinin/risk-assessor/internal/server"
 	"github.com/carinfinin/risk-assessor/internal/service"
 )
@@ -32,7 +34,8 @@ func main() {
 	// Создаем encryptor
 	encryptor := encryption.NewEncryptor(keyProvider)
 	// Запускаем сервисы
-	s := service.New(encryptor)
+	produser, err := mq.New(cfg)
+	s := service.New(encryptor, produser)
 	router := server.NewRouter(cfg, s)
 
 	svr := server.New(cfg, router)

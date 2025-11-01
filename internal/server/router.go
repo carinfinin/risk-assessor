@@ -2,10 +2,11 @@ package server
 
 import (
 	"encoding/json"
+	"net/http"
+
 	"github.com/carinfinin/risk-assessor/internal/config"
 	"github.com/carinfinin/risk-assessor/internal/model"
 	"github.com/go-chi/chi/v5"
-	"net/http"
 )
 
 //go:generate
@@ -44,7 +45,7 @@ func (r *Router) RouteUser(writer http.ResponseWriter, request *http.Request) {
 	var clientData model.ClientData
 
 	if err := json.NewDecoder(request.Body).Decode(&clientData); err != nil {
-		http.Error(writer, "json invalid", http.StatusBadRequest)
+		http.Error(writer, "json invalid error: "+err.Error(), http.StatusBadRequest)
 		return
 	}
 	defer request.Body.Close()
